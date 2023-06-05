@@ -4,6 +4,8 @@
 
     public const string PREFAB_CELL_BACKGROUND = "prefabs/cellBackground";
 
+    public const string PREFAB_ITEM = "prefabs/item";
+    
     public const string PREFAB_NORMAL_TYPE_ONE = "prefabs/itemNormal01";
 
     public const string PREFAB_NORMAL_TYPE_TWO = "prefabs/itemNormal02";
@@ -23,4 +25,6 @@
     public const string PREFAB_BONUS_VERTICAL = "prefabs/itemBonusVertical";
 
     public const string PREFAB_BONUS_BOMB = "prefabs/itemBonusBomb";
+    
+    public static string PATH_SPRITE_ATLAS_REF = "SpriteAtlasRef";
 }
