@@ -8,5 +8,10 @@ namespace ScriptableObjects
     {
         public SpriteAtlas Items;
 
+        public enum TypeOfItem
+        {
+            Character,
+            Fish,
+        }
     }
 }

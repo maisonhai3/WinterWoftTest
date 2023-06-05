@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bddfef76c3640c98e88620bfa6e0c8a, type: 3}
   m_Name: SpriteAtlasRef
   m_EditorClassIdentifier: 
-  Items: {fileID: 4343727234628468602, guid: 2c3df942121aea446b29744ba6066880, type: 2}
+  Items: {fileID: 4343727234628468602, guid: 92dbea93870d3604f89db2a9fbc1650b, type: 2}

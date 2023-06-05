@@ -101,7 +101,7 @@ public class Board
                 }
 
                 item.SetType(Utils.GetRandomNormalTypeExcept(types.ToArray()));
-                item.SetViewAndSprite();
+                item.InitViewAndSetSprite();
                 item.SetViewRoot(m_root);
 
                 cell.Assign(item);
@@ -148,7 +148,7 @@ public class Board
                 NormalItem item = new NormalItem();
 
                 item.SetType(Utils.GetRandomNormalType());
-                item.SetViewAndSprite();
+                item.InitViewAndSetSprite();
                 item.SetViewRoot(m_root);
 
                 cell.Assign(item);
@@ -282,7 +282,7 @@ public class Board
                 cellToConvert = matches[rnd];
             }
 
-            item.SetViewAndSprite();
+            item.InitViewAndSetSprite();
             item.SetViewRoot(m_root);
 
             cellToConvert.Free();

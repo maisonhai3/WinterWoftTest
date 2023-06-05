@@ -3,6 +3,7 @@ using UnityEngine;
 using DG.Tweening;
 using ScriptableObjects;
 using UnityEngine.U2D;
+using Utilities;
 
 [Serializable]
 public class Item
@@ -12,7 +13,7 @@ public class Item
     public Transform View { get; private set; }
 
 
-    public virtual void SetViewAndSprite()
+    public virtual void InitViewAndSetSprite()
     {
         string typeItem = GetTypeItem();
 
@@ -21,51 +22,37 @@ public class Item
             GameObject prefab = Resources.Load<GameObject>(Constants.PREFAB_ITEM);
             if (prefab)
             {
-                View = GameObject.Instantiate(prefab).transform;
-                GetSpriteNameFromTypeItem(typeItem);
-                SetSprite(typeItem);
+                // View = GameObject.Instantiate(prefab).transform;
+                
+                GameObject item = ObjectPool.SharedInstance.GetPooledObject(); 
+                if (item != null) {
+                    View = item.transform;
+                    item.SetActive(true);
+                }
+                
+                SetSprite(GetSpriteNameFromTypeItem(typeItem));
             }
         }
     }
 
-    private void GetSpriteNameFromTypeItem(string typeItem)
+    private static string GetSpriteNameFromTypeItem(string typeItem)
     {
-        // Get the sprite name from the type item
-        string spriteName = string.Empty;
-        
-        switch (typeItem)
+        string spriteName = typeItem switch
         {
-            case Constants.PREFAB_NORMAL_TYPE_ONE:
-                spriteName = Constants.SPRITE_NORMAL_TYPE_ONE;
-                break;
-            case Constants.PREFAB_NORMAL_TYPE_TWO:
-                spriteName = Constants.SPRITE_NORMAL_TYPE_TWO;
-                break;
-            case Constants.PREFAB_NORMAL_TYPE_THREE:
-                spriteName = Constants.SPRITE_NORMAL_TYPE_THREE;
-                break;
-            case Constants.PREFAB_NORMAL_TYPE_FOUR:
-                spriteName = Constants.SPRITE_NORMAL_TYPE_FOUR;
-                break;
-            case Constants.PREFAB_NORMAL_TYPE_FIVE:
-                spriteName = Constants.SPRITE_NORMAL_TYPE_FIVE;
-                break;
-            case Constants.PREFAB_NORMAL_TYPE_SIX:
-                spriteName = Constants.SPRITE_NORMAL_TYPE_SIX;
-                break;
-            case Constants.PREFAB_NORMAL_TYPE_SEVEN:
-                spriteName = Constants.SPRITE_NORMAL_TYPE_SEVEN;
-                break;
-            case Constants.PREFAB_BONUS_HORIZONTAL:
-                spriteName = Constants.SPRITE_BONUS_HORIZONTAL;
-                break;
-            case Constants.PREFAB_BONUS_VERTICAL:
-                spriteName = Constants.SPRITE_BONUS_VERTICAL;
-                break;
-            case Constants.PREFAB_BONUS_BOMB:
-                spriteName = Constants.SPRITE_BONUS_BOMB;
-                break;
-        }
+            Constants.PREFAB_NORMAL_TYPE_ONE => Constants.SPRITE_NORMAL_TYPE_ONE,
+            Constants.PREFAB_NORMAL_TYPE_TWO => Constants.SPRITE_NORMAL_TYPE_TWO,
+            Constants.PREFAB_NORMAL_TYPE_THREE => Constants.SPRITE_NORMAL_TYPE_THREE,
+            Constants.PREFAB_NORMAL_TYPE_FOUR => Constants.SPRITE_NORMAL_TYPE_FOUR,
+            Constants.PREFAB_NORMAL_TYPE_FIVE => Constants.SPRITE_NORMAL_TYPE_FIVE,
+            Constants.PREFAB_NORMAL_TYPE_SIX => Constants.SPRITE_NORMAL_TYPE_SIX,
+            Constants.PREFAB_NORMAL_TYPE_SEVEN => Constants.SPRITE_NORMAL_TYPE_SEVEN,
+            Constants.PREFAB_BONUS_HORIZONTAL => Constants.SPRITE_BONUS_HORIZONTAL,
+            Constants.PREFAB_BONUS_VERTICAL => Constants.SPRITE_BONUS_VERTICAL,
+            Constants.PREFAB_BONUS_BOMB => Constants.SPRITE_BONUS_BOMB,
+            _ => string.Empty
+        };
+
+        return spriteName;
     }
 
     private void SetSprite(string spriteName)
@@ -169,7 +156,9 @@ public class Item
             View.DOScale(0.1f, 0.1f).OnComplete(
                 () =>
                 {
-                    GameObject.Destroy(View.gameObject);
+                    HideItem();
+                    // GameObject.Destroy(View.gameObject);
+                    
                     View = null;
                 }
                 );
@@ -200,8 +189,20 @@ public class Item
 
         if (View)
         {
-            GameObject.Destroy(View.gameObject);
+            HideItem();
+            // GameObject.Destroy(View.gameObject);
+            
             View = null;
+        }
+    }
+
+    private void HideItem()
+    {
+        if (View)
+        {
+            View.gameObject.SetActive(false);
+            View.gameObject.transform.localScale = Vector3.one;
+            View.SetParent(ObjectPool.SharedInstance.transform); // To prevent being destroyed when Board is destroyed.
         }
     }
 }
