@@ -24,4 +24,24 @@ public class Utils
 
         return result;
     }
+
+    public static string GetSpriteNameFromTypeItem(string typeItem)
+    {
+        string spriteName = typeItem switch
+        {
+            Constants.PREFAB_NORMAL_TYPE_ONE => Constants.SPRITE_NORMAL_TYPE_ONE,
+            Constants.PREFAB_NORMAL_TYPE_TWO => Constants.SPRITE_NORMAL_TYPE_TWO,
+            Constants.PREFAB_NORMAL_TYPE_THREE => Constants.SPRITE_NORMAL_TYPE_THREE,
+            Constants.PREFAB_NORMAL_TYPE_FOUR => Constants.SPRITE_NORMAL_TYPE_FOUR,
+            Constants.PREFAB_NORMAL_TYPE_FIVE => Constants.SPRITE_NORMAL_TYPE_FIVE,
+            Constants.PREFAB_NORMAL_TYPE_SIX => Constants.SPRITE_NORMAL_TYPE_SIX,
+            Constants.PREFAB_NORMAL_TYPE_SEVEN => Constants.SPRITE_NORMAL_TYPE_SEVEN,
+            Constants.PREFAB_BONUS_HORIZONTAL => Constants.SPRITE_BONUS_HORIZONTAL,
+            Constants.PREFAB_BONUS_VERTICAL => Constants.SPRITE_BONUS_VERTICAL,
+            Constants.PREFAB_BONUS_BOMB => Constants.SPRITE_BONUS_BOMB,
+            _ => string.Empty
+        };
+
+        return spriteName;
+    }
 }

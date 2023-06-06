@@ -10,7 +10,8 @@ namespace Utilities
         public List<GameObject> pooledObjects;
         public GameObject objectToPool;
         
-        public int amountToPool;
+        private int amountToPool;
+        private const int Buffer = 10;
 
         private void Awake()
         {
@@ -29,7 +30,7 @@ namespace Utilities
             var gameSetting = Resources.Load<GameSettings>(Constants.GAME_SETTINGS_PATH);
             if (gameSetting)
             {
-                amountToPool = gameSetting.BoardSizeX * gameSetting.BoardSizeY + 10;
+                amountToPool = gameSetting.BoardSizeX * gameSetting.BoardSizeY + Buffer;
             }
         }
 
