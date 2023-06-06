@@ -153,19 +153,13 @@ public class Item
     {
         if (View)
         {
-            View.DOScale(0.1f, 0.1f).OnComplete(
-                () =>
+            View.DOMoveY(-8, 1f).OnComplete( () =>
                 {
                     HideItem();
-                    // GameObject.Destroy(View.gameObject);
-                    
                     View = null;
-                }
-                );
+                });
         }
     }
-
-
 
     internal void AnimateForHint()
     {
@@ -190,8 +184,6 @@ public class Item
         if (View)
         {
             HideItem();
-            // GameObject.Destroy(View.gameObject);
-            
             View = null;
         }
     }
