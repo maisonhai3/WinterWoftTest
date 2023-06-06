@@ -34,8 +34,8 @@
     public static string SPRITE_NORMAL_TYPE_FIVE = "05";
     public static string SPRITE_NORMAL_TYPE_SIX = "06";
     public static string SPRITE_NORMAL_TYPE_SEVEN = "07";
-    public static string SPRITE_BONUS_HORIZONTAL = "horizontal";
-    public static string SPRITE_BONUS_VERTICAL = "vertical";
+    public static string SPRITE_BONUS_HORIZONTAL = "arrow_horizontal";
+    public static string SPRITE_BONUS_VERTICAL = "arrow_vertical";
     public static string SPRITE_BONUS_BOMB = "bomb";
     
 }
