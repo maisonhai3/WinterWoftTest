@@ -32,10 +32,7 @@ public class UIPanelRestart : MonoBehaviour, IMenu
     {
         m_mngr.ShowGameMenu();
         
-        // Restart the game
-        
-        
-        throw new NotImplementedException();
+        m_mngr.RestartLevel();
     }
 
     private void OnClickClose()

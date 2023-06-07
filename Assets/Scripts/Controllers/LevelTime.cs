@@ -42,4 +42,11 @@ public class LevelTime : LevelCondition
 
         m_txt.text = string.Format("TIME:\n{0:00}", m_time);
     }
+    
+    public override void Reset(float time)
+    {
+        m_time = time;
+        
+        UpdateText();
+    }
 }

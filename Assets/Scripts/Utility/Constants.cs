@@ -37,5 +37,4 @@
     public static string SPRITE_BONUS_HORIZONTAL = "arrow_horizontal";
     public static string SPRITE_BONUS_VERTICAL = "arrow_vertical";
     public static string SPRITE_BONUS_BOMB = "bomb";
-    
 }

@@ -38,7 +38,7 @@ public class Board
 
         m_cells = new Cell[boardSizeX, boardSizeY];
 
-        SetRandomSeed();
+        SetRandomSeed(gameSettings);
         
         CreateBoard();
     }
@@ -75,11 +75,9 @@ public class Board
         }
     }
 
-    private void SetRandomSeed()
+    private void SetRandomSeed(GameSettings gameSettings)
     {
-        var randomizer = new System.Random();
-        randomSeed = randomizer.Next(int.MinValue,int.MaxValue);
-        UnityEngine.Random.InitState(randomSeed);
+        UnityEngine.Random.InitState(gameSettings.RandomSeed);
     }
 
     internal void Fill()
@@ -92,6 +90,7 @@ public class Board
                 NormalItem item = new NormalItem();
 
                 List<NormalItem.eNormalType> types = new List<NormalItem.eNormalType>();
+                
                 if (cell.NeighbourBottom != null)
                 {
                     NormalItem nitem = cell.NeighbourBottom.Item as NormalItem;
@@ -683,5 +682,21 @@ public class Board
                 m_cells[x, y] = null;
             }
         }
+    }
+
+    public void ClearItem()
+    {
+        for (int x = 0; x < boardSizeX; x++)
+        {
+            for (int y = 0; y < boardSizeY; y++)
+            {
+                Cell cell = m_cells[x, y];
+                cell.Clear();
+                //
+                // GameObject.Destroy(cell.gameObject);
+                // m_cells[x, y] = null;
+            }
+        }
+        
     }
 }

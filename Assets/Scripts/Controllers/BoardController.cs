@@ -46,7 +46,16 @@ public class BoardController : MonoBehaviour
         Fill();
     }
 
-    private void Fill()
+    public void RestartGame()
+    {
+        Clear();
+        
+        m_board = new Board(this.transform, m_gameSettings);
+
+        Fill();
+    }
+
+    public void Fill()
     {
         m_board.Fill();
         FindMatchesAndCollapse();
@@ -280,6 +289,11 @@ public class BoardController : MonoBehaviour
     }
 
     internal void Clear()
+    {
+        m_board.Clear();
+    }
+    
+    internal void ClearItem()
     {
         m_board.Clear();
     }

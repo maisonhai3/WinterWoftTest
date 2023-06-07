@@ -84,6 +84,8 @@ public class GameManager : MonoBehaviour
 
     public void LoadLevel(eLevelMode mode)
     {
+        SetRandomSeed();
+ 
         m_boardController = new GameObject("BoardController").AddComponent<BoardController>();
         m_boardController.StartGame(this, m_gameSettings);
 
@@ -101,6 +103,20 @@ public class GameManager : MonoBehaviour
         m_levelCondition.ConditionCompleteEvent += GameOver;
 
         State = eStateGame.GAME_STARTED;
+        
+    }
+
+    public void RestartGame()
+    {
+        m_boardController.RestartGame();
+        m_levelCondition.Reset(m_gameSettings.LevelMoves);
+    }
+
+    private void SetRandomSeed()
+    {
+        var randomizer = new System.Random();
+        var randomSeed = randomizer.Next(int.MinValue,int.MaxValue);
+        m_gameSettings.RandomSeed = randomSeed;
     }
 
     public void GameOver()

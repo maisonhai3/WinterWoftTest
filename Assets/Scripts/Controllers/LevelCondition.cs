@@ -29,6 +29,8 @@ public class LevelCondition : MonoBehaviour
 
     protected virtual void UpdateText() { }
 
+    public virtual void Reset(float value) { }
+
     protected void OnConditionComplete()
     {
         m_conditionCompleted = true;

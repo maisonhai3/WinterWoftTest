@@ -22,8 +22,6 @@ public class Item
             GameObject prefab = Resources.Load<GameObject>(Constants.PREFAB_ITEM);
             if (prefab)
             {
-                // View = GameObject.Instantiate(prefab).transform;
-                
                 GameObject item = ObjectPool.SharedInstance.GetPooledObject(); 
                 if (item != null) {
                     View = item.transform;
@@ -37,25 +35,17 @@ public class Item
 
     private void SetSprite(string spriteName)
     {
-        // Get reference to the SpriteAtlasRef scriptable object
         SpriteAtlasRef spriteAtlasRef = Resources.Load<SpriteAtlasRef>(Constants.PATH_SPRITE_ATLAS_REF);
         if (spriteAtlasRef)
         {
-            // Get the sprite atlas from the scriptable object
             SpriteAtlas spriteAtlas = spriteAtlasRef.Items;
             if (spriteAtlas)
             {
-                // Get the sprite from the sprite atlas
                 Sprite sprite = spriteAtlas.GetSprite(spriteName);
                 if (sprite)
                 {
-                    // Get the sprite renderer from the view
                     SpriteRenderer spriteRenderer = View.GetComponent<SpriteRenderer>();
-                    if (spriteRenderer)
-                    {
-                        // Set the sprite to the sprite renderer
-                        spriteRenderer.sprite = sprite;
-                    }
+                    if (spriteRenderer) spriteRenderer.sprite = sprite;
                 }
             }
         }
