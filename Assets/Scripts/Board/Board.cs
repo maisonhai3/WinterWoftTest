@@ -24,6 +24,8 @@ public class Board
     private Transform m_root;
 
     private int m_matchMin;
+    
+    private int randomSeed;
 
     public Board(Transform transform, GameSettings gameSettings)
     {
@@ -36,6 +38,8 @@ public class Board
 
         m_cells = new Cell[boardSizeX, boardSizeY];
 
+        SetRandomSeed();
+        
         CreateBoard();
     }
 
@@ -69,7 +73,13 @@ public class Board
                 if (x > 0) m_cells[x, y].NeighbourLeft = m_cells[x - 1, y];
             }
         }
+    }
 
+    private void SetRandomSeed()
+    {
+        var randomizer = new System.Random();
+        randomSeed = randomizer.Next(int.MinValue,int.MaxValue);
+        UnityEngine.Random.InitState(randomSeed);
     }
 
     internal void Fill()

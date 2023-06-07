@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
         SETUP,
         MAIN_MENU,
         GAME_STARTED,
+        PAUSE_TO_RESTART,
         PAUSE,
         GAME_OVER,
     }
