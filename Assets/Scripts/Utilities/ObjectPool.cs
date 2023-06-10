@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Utilities
@@ -49,6 +50,9 @@ namespace Utilities
         
         public GameObject GetPooledObject()
         {
+            if (pooledObjects.Contains(null))
+                Debug.LogError("An object is destroyed!");
+
             for(var i = 0; i < amountToPool; i++)
             {
                 if(!pooledObjects[i].activeInHierarchy)

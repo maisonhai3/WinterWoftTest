@@ -2,6 +2,7 @@
 using UnityEngine;
 using DG.Tweening;
 using ScriptableObjects;
+using Textures;
 using UnityEngine.U2D;
 using Utilities;
 
@@ -35,21 +36,15 @@ public class Item
 
     private void SetSprite(string spriteName)
     {
-        SpriteAtlasRef spriteAtlasRef = Resources.Load<SpriteAtlasRef>(Constants.PATH_SPRITE_ATLAS_REF);
-        if (spriteAtlasRef)
-        {
-            SpriteAtlas spriteAtlas = spriteAtlasRef.Items;
-            if (spriteAtlas)
-            {
-                Sprite sprite = spriteAtlas.GetSprite(spriteName);
-                if (sprite)
-                {
-                    SpriteRenderer spriteRenderer = View.GetComponent<SpriteRenderer>();
-                    if (spriteRenderer) spriteRenderer.sprite = sprite;
-                }
-            }
-        }
+        SpriteAtlas atlas = GetType().Name == "BonusItem" 
+            ? TextureManager.Instance.bonusItemAtlas 
+            : TextureManager.Instance.normalItemAtlas;
+        
+        Sprite sprite = atlas.GetSprite(spriteName);
+        SpriteRenderer spriteRenderer = View.GetComponent<SpriteRenderer>();
+        if (spriteRenderer) spriteRenderer.sprite = sprite;
     }
+
 
     protected virtual string GetTypeItem() { return string.Empty; }
 

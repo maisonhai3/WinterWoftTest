@@ -110,7 +110,7 @@ public class BonusItem : Item
 
     private void ExplodeVerticalLine()
     {
-        List<Cell> list = new List<Cell>();
+        List<Cell> listToExplode = new List<Cell>();
 
         Cell newcell = Cell;
         while (true)
@@ -118,7 +118,7 @@ public class BonusItem : Item
             Cell next = newcell.NeighbourUp;
             if (next == null) break;
 
-            list.Add(next);
+            listToExplode.Add(next);
             newcell = next;
         }
 
@@ -128,20 +128,20 @@ public class BonusItem : Item
             Cell next = newcell.NeighbourBottom;
             if (next == null) break;
 
-            list.Add(next);
+            listToExplode.Add(next);
             newcell = next;
         }
 
 
-        for (int i = 0; i < list.Count; i++)
+        for (int i = 0; i < listToExplode.Count; i++)
         {
-            list[i].ExplodeItem();
+            listToExplode[i].ExplodeItem();
         }
     }
 
     private void ExplodeHorizontalLine()
     {
-        List<Cell> list = new List<Cell>();
+        List<Cell> listToExplode = new List<Cell>();
 
         Cell newcell = Cell;
         while (true)
@@ -149,7 +149,7 @@ public class BonusItem : Item
             Cell next = newcell.NeighbourRight;
             if (next == null) break;
 
-            list.Add(next);
+            listToExplode.Add(next);
             newcell = next;
         }
 
@@ -159,14 +159,14 @@ public class BonusItem : Item
             Cell next = newcell.NeighbourLeft;
             if (next == null) break;
 
-            list.Add(next);
+            listToExplode.Add(next);
             newcell = next;
         }
 
 
-        for (int i = 0; i < list.Count; i++)
+        for (int i = 0; i < listToExplode.Count; i++)
         {
-            list[i].ExplodeItem();
+            listToExplode[i].ExplodeItem();
         }
 
     }

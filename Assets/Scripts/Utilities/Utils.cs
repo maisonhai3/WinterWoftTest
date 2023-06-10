@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
 using URandom = UnityEngine.Random;
 
@@ -29,6 +30,7 @@ public class Utils
     {
         string spriteName = typeItem switch
         {
+            // Normal items
             Constants.PREFAB_NORMAL_TYPE_ONE => Constants.SPRITE_NORMAL_TYPE_ONE,
             Constants.PREFAB_NORMAL_TYPE_TWO => Constants.SPRITE_NORMAL_TYPE_TWO,
             Constants.PREFAB_NORMAL_TYPE_THREE => Constants.SPRITE_NORMAL_TYPE_THREE,
@@ -36,6 +38,8 @@ public class Utils
             Constants.PREFAB_NORMAL_TYPE_FIVE => Constants.SPRITE_NORMAL_TYPE_FIVE,
             Constants.PREFAB_NORMAL_TYPE_SIX => Constants.SPRITE_NORMAL_TYPE_SIX,
             Constants.PREFAB_NORMAL_TYPE_SEVEN => Constants.SPRITE_NORMAL_TYPE_SEVEN,
+            
+            // Bonus items
             Constants.PREFAB_BONUS_HORIZONTAL => Constants.SPRITE_BONUS_HORIZONTAL,
             Constants.PREFAB_BONUS_VERTICAL => Constants.SPRITE_BONUS_VERTICAL,
             Constants.PREFAB_BONUS_BOMB => Constants.SPRITE_BONUS_BOMB,
