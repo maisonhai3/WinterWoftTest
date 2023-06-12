@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using NUnit.Framework;
 using UnityEngine;
 
 public class Cell : MonoBehaviour
@@ -62,6 +65,31 @@ public class Cell : MonoBehaviour
             Item = null;
         }
     }
+
+    private bool IsPossibleType()
+    {
+        return 
+            !IsSameType(NeighbourLeft) && 
+            !IsSameType(NeighbourRight) &&
+            !IsSameType(NeighbourUp) && 
+            !IsSameType(NeighbourBottom);
+    }
+
+    public List<NormalItem.eNormalType> GetSurroundingCellTypes()
+    {
+        List<NormalItem.eNormalType> surroundingTypes = new List<NormalItem.eNormalType>();
+
+        foreach (var cell in new List<Cell>{NeighbourLeft, NeighbourRight, NeighbourUp, NeighbourBottom}
+                     .Where(cell => cell != null)
+                     .Where(cell => cell.Item != null))
+        {
+            if (cell.Item is NormalItem item) 
+                surroundingTypes.Add(item.ItemType);
+        }
+        
+        return surroundingTypes;
+    }
+    
 
     internal bool IsSameType(Cell other)
     {

@@ -15,7 +15,7 @@ public class Utils
 
         return result;
     }
-
+    
     public static NormalItem.eNormalType GetRandomNormalTypeExcept(NormalItem.eNormalType[] types)
     {
         List<NormalItem.eNormalType> list = Enum.GetValues(typeof(NormalItem.eNormalType)).Cast<NormalItem.eNormalType>().Except(types).ToList();
@@ -23,6 +23,40 @@ public class Utils
         int rnd = URandom.Range(0, list.Count);
         NormalItem.eNormalType result = list[rnd];
 
+        return result;
+    }
+
+    public static NormalItem.eNormalType GetTheLeastNormalTypeExcept(Board board, Cell cell)
+    {
+        NormalItem.eNormalType[] types = cell.GetSurroundingCellTypes().ToArray();
+        List<NormalItem.eNormalType> listPossibleTypes = Enum.GetValues(typeof(NormalItem.eNormalType)).Cast<NormalItem.eNormalType>().Except(types).ToList();
+
+        board.UpdateTypeNumberSummary();
+        var sortedSummary = board.TypeNumberSummary.OrderBy(item => item.Value);
+        
+        List<NormalItem.eNormalType> listToRandomize = 
+            sortedSummary.Select(item => MatchKeyToNormalType(item.Key))
+                         .Where(type => listPossibleTypes.Contains(type))
+                         .ToList();
+
+        const int priorityWeight = 2;
+        int rnd = URandom.Range(0, listToRandomize.Count - priorityWeight);
+        return listToRandomize[rnd];
+    }
+
+    private static NormalItem.eNormalType MatchKeyToNormalType(string key)
+    {
+        var result = key switch
+        {
+            Constants.PREFAB_NORMAL_TYPE_ONE => NormalItem.eNormalType.TYPE_ONE,
+            Constants.PREFAB_NORMAL_TYPE_TWO => NormalItem.eNormalType.TYPE_TWO,
+            Constants.PREFAB_NORMAL_TYPE_THREE => NormalItem.eNormalType.TYPE_THREE,
+            Constants.PREFAB_NORMAL_TYPE_FOUR => NormalItem.eNormalType.TYPE_FOUR,
+            Constants.PREFAB_NORMAL_TYPE_FIVE => NormalItem.eNormalType.TYPE_FIVE,
+            Constants.PREFAB_NORMAL_TYPE_SIX => NormalItem.eNormalType.TYPE_SIX,
+            Constants.PREFAB_NORMAL_TYPE_SEVEN => NormalItem.eNormalType.TYPE_SEVEN,
+            _ => NormalItem.eNormalType.TYPE_ONE
+        };
         return result;
     }
 

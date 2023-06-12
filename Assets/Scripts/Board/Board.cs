@@ -26,6 +26,8 @@ public class Board
     private int m_matchMin;
     
     private int randomSeed;
+    
+    public Dictionary<string, int> TypeNumberSummary = new Dictionary<string, int>();
 
     public Board(Transform transform, GameSettings gameSettings)
     {
@@ -119,6 +121,43 @@ public class Board
         }
     }
 
+    public void UpdateTypeNumberSummary()
+    {
+        TypeNumberSummary = new Dictionary<string, int>();
+        List<string> allCellType = new List<string>();
+        
+        for (int x = 0; x < boardSizeX; x++)
+        {
+            for (int y = 0; y < boardSizeY; y++)
+            {
+                var cell = m_cells[x, y];
+                if (cell != null)
+                {
+                    if (cell.Item != null)
+                    {
+                        var cellType = cell.Item.GetTypeItem();
+                        allCellType.Add(cellType);
+                    }
+                }
+            }
+        }
+
+        TypeNumberSummary[Constants.PREFAB_NORMAL_TYPE_ONE] = 
+            allCellType.Count(x => x.Equals(Constants.PREFAB_NORMAL_TYPE_ONE));
+        TypeNumberSummary[Constants.PREFAB_NORMAL_TYPE_TWO] = 
+            allCellType.Count(x => x.Equals(Constants.PREFAB_NORMAL_TYPE_TWO));
+        TypeNumberSummary[Constants.PREFAB_NORMAL_TYPE_THREE] = 
+            allCellType.Count(x => x.Equals(Constants.PREFAB_NORMAL_TYPE_THREE));
+        TypeNumberSummary[Constants.PREFAB_NORMAL_TYPE_FOUR] = 
+            allCellType.Count(x => x.Equals(Constants.PREFAB_NORMAL_TYPE_FOUR));
+        TypeNumberSummary[Constants.PREFAB_NORMAL_TYPE_FIVE] = 
+            allCellType.Count(x => x.Equals(Constants.PREFAB_NORMAL_TYPE_FIVE));
+        TypeNumberSummary[Constants.PREFAB_NORMAL_TYPE_SIX] = 
+            allCellType.Count(x => x.Equals(Constants.PREFAB_NORMAL_TYPE_SIX));
+        TypeNumberSummary[Constants.PREFAB_NORMAL_TYPE_SEVEN] = 
+            allCellType.Count(x => x.Equals(Constants.PREFAB_NORMAL_TYPE_SEVEN));
+    }
+
     internal void Shuffle()
     {
         List<Item> list = new List<Item>();
@@ -156,7 +195,7 @@ public class Board
 
                 NormalItem item = new NormalItem();
 
-                item.SetType(Utils.GetRandomNormalType());
+                item.SetType(Utils.GetTheLeastNormalTypeExcept(this, cell));
                 item.InitViewAndSetSprite();
                 item.SetViewRoot(m_root);
 

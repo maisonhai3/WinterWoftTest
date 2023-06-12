@@ -36,6 +36,8 @@ public class Item
 
     private void SetSprite(string spriteName)
     {
+        if (View == null) return; // This item is not assigned to any cell.
+        
         SpriteAtlas atlas = GetType().Name == "BonusItem" 
             ? TextureManager.Instance.bonusItemAtlas 
             : TextureManager.Instance.normalItemAtlas;
@@ -46,7 +48,7 @@ public class Item
     }
 
 
-    protected virtual string GetTypeItem() { return string.Empty; }
+    public virtual string GetTypeItem() { return string.Empty; }
 
     public virtual void SetCell(Cell cell)
     {

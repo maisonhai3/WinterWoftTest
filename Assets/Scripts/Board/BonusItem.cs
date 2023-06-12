@@ -20,7 +20,7 @@ public class BonusItem : Item
         ItemType = type;
     }
 
-    protected override string GetTypeItem()
+    public override string GetTypeItem()
     {
         string prefabname = string.Empty;
         switch (ItemType)
